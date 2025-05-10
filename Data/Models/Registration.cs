@@ -7,7 +7,7 @@ namespace lab04.Data.Models
     /// Klasa reprezentująca rejestrację użytkownika na wydarzenie.
     /// </summary>
     [Table("Registrations")]
-    internal class Registration
+    public class Registration
     {
         [Key]
         [Column("id")]

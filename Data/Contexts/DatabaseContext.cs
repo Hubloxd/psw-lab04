@@ -1,12 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using lab04.Data.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace lab04.Data.Contexts
 {
-    internal class DatabaseContext : DbContext
+    public class DatabaseContext : DbContext
     {
-        public DbSet<Models.Event> Events => Set<Models.Event>();
-        public DbSet<Models.User> Users => Set<Models.User>();
-        public DbSet<Models.Registration> Registrations => Set<Models.Registration>();
+        public DbSet<Event> Events => Set<Models.Event>();
+        public DbSet<User> Users => Set<Models.User>();
+        public DbSet<Registration> Registrations => Set<Models.Registration>();
 
         public DatabaseContext()
         {

@@ -7,7 +7,7 @@ namespace lab04.Data.Models
     /// Klasa reprezentująca użytkownika.
     /// </summary>
     [Table("Users")]
-    internal class User
+    public class User
     {
         [Key]
         [Column("id")]
