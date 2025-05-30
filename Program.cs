@@ -95,7 +95,9 @@ namespace lab04
             services.AddScoped<RegistrationService>();
 
             // Rejestracja formularzy
-            services.AddScoped<LoginForm>();
+            services.AddTransient<LoginForm>();
+            services.AddTransient<RegisterForm>();
+            services.AddTransient<AdminManageUsersForm>();
         }
     }
 }

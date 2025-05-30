@@ -96,5 +96,8 @@ namespace lab04.Services
         {
             return password; // TODO: Zaimplementować haszowanie hasła
         }
+        
+        public bool UserExists(string login) =>
+            _dbContext.Users.Any(u => u.Login == login);
     }
 }
