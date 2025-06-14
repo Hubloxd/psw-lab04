@@ -38,8 +38,6 @@
             btnResetPassword = new Button();
             btnRefresh = new Button();
             dataGridViewUsers = new DataGridView();
-            statusStrip = new StatusStrip();
-            toolStripStatusLabel = new ToolStripStatusLabel();
             colId = new DataGridViewTextBoxColumn();
             colUsername = new DataGridViewTextBoxColumn();
             colEmail = new DataGridViewTextBoxColumn();
@@ -47,6 +45,8 @@
             colFirstName = new DataGridViewTextBoxColumn();
             colLastName = new DataGridViewTextBoxColumn();
             colPassword = new DataGridViewTextBoxColumn();
+            statusStrip = new StatusStrip();
+            toolStripStatusLabel = new ToolStripStatusLabel();
             panelHeader.SuspendLayout();
             panelButtons.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewUsers).BeginInit();
@@ -99,7 +99,7 @@
             btnAddUser.Location = new Point(20, 15);
             btnAddUser.Name = "btnAddUser";
             btnAddUser.Padding = new Padding(10, 0, 10, 0);
-            btnAddUser.Size = new Size(150, 40);
+            btnAddUser.Size = new Size(181, 40);
             btnAddUser.TabIndex = 0;
             btnAddUser.Text = "  Dodaj użytkownika";
             btnAddUser.UseVisualStyleBackColor = false;
@@ -113,7 +113,7 @@
             btnDeleteUser.FlatStyle = FlatStyle.Flat;
             btnDeleteUser.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             btnDeleteUser.ForeColor = Color.White;
-            btnDeleteUser.Location = new Point(190, 15);
+            btnDeleteUser.Location = new Point(214, 15);
             btnDeleteUser.Name = "btnDeleteUser";
             btnDeleteUser.Size = new Size(150, 40);
             btnDeleteUser.TabIndex = 1;
@@ -129,7 +129,7 @@
             btnResetPassword.FlatStyle = FlatStyle.Flat;
             btnResetPassword.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             btnResetPassword.ForeColor = Color.White;
-            btnResetPassword.Location = new Point(360, 15);
+            btnResetPassword.Location = new Point(384, 15);
             btnResetPassword.Name = "btnResetPassword";
             btnResetPassword.Size = new Size(150, 40);
             btnResetPassword.TabIndex = 2;
@@ -144,7 +144,7 @@
             btnRefresh.FlatStyle = FlatStyle.Flat;
             btnRefresh.Font = new Font("Segoe UI", 10F);
             btnRefresh.ForeColor = Color.White;
-            btnRefresh.Location = new Point(530, 15);
+            btnRefresh.Location = new Point(554, 15);
             btnRefresh.Name = "btnRefresh";
             btnRefresh.Size = new Size(100, 40);
             btnRefresh.TabIndex = 3;
@@ -189,21 +189,6 @@
             dataGridViewUsers.TabIndex = 2;
             dataGridViewUsers.SelectionChanged += dataGridViewUsers_SelectionChanged;
             dataGridViewUsers.DoubleClick += dataGridViewUsers_DoubleClick;
-            // 
-            // statusStrip
-            // 
-            statusStrip.Items.AddRange(new ToolStripItem[] { toolStripStatusLabel });
-            statusStrip.Location = new Point(0, 428);
-            statusStrip.Name = "statusStrip";
-            statusStrip.Size = new Size(900, 22);
-            statusStrip.TabIndex = 3;
-            statusStrip.Text = "statusStrip1";
-            // 
-            // toolStripStatusLabel
-            // 
-            toolStripStatusLabel.Name = "toolStripStatusLabel";
-            toolStripStatusLabel.Size = new Size(48, 17);
-            toolStripStatusLabel.Text = "Gotowy";
             // 
             // colId
             // 
@@ -257,6 +242,21 @@
             colPassword.Name = "colPassword";
             colPassword.ReadOnly = true;
             colPassword.Visible = false;
+            // 
+            // statusStrip
+            // 
+            statusStrip.Items.AddRange(new ToolStripItem[] { toolStripStatusLabel });
+            statusStrip.Location = new Point(0, 428);
+            statusStrip.Name = "statusStrip";
+            statusStrip.Size = new Size(900, 22);
+            statusStrip.TabIndex = 3;
+            statusStrip.Text = "statusStrip1";
+            // 
+            // toolStripStatusLabel
+            // 
+            toolStripStatusLabel.Name = "toolStripStatusLabel";
+            toolStripStatusLabel.Size = new Size(48, 17);
+            toolStripStatusLabel.Text = "Gotowy";
             // 
             // AdminManageUsersForm
             // 
