@@ -28,7 +28,7 @@ namespace lab04.Data.Models
 
         public override string ToString()
         {
-            return $"{Id} {Name} {Agenda} {Date}";
+            return $"{Name}";
         }
     }
 }

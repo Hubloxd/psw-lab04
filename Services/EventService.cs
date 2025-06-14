@@ -46,5 +46,27 @@ namespace lab04.Services
             _dbContext.Events.Update(eventItem);
             return Task.FromResult(_dbContext.SaveChanges() > 0);
         }
+
+        internal void AddEvent(Event newEvent)
+        {
+            ArgumentNullException.ThrowIfNull(newEvent);
+            _dbContext.Events.Add(newEvent);
+            _dbContext.SaveChanges();
+        }
+
+        internal int GetEventsCount()
+        {
+            return _dbContext.Events.Count();
+        }
+
+        internal void DeleteEvent(int id)
+        {
+            var eventToDelete = _dbContext.Events.Find(id);
+            if (eventToDelete == null)
+                throw new InvalidOperationException($"Wydarzenie o ID {id} nie zostało znalezione.");
+            
+            _dbContext.Events.Remove(eventToDelete);
+            _dbContext.SaveChanges();
+        }
     }
 }

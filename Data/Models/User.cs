@@ -46,7 +46,7 @@ namespace lab04.Data.Models
 
         public override string ToString()
         {
-            return $"{Id} {FirstName} {LastName} {Login} {Password} {Email} {Permissions}";
+            return $"{Login}";
         }
     }
 }

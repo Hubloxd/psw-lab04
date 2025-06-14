@@ -1,11 +1,15 @@
-﻿using lab04.Services;
+﻿using lab04.Forms.User;
+using lab04.Services;
 using Microsoft.Extensions.DependencyInjection;
+using lab04.Data.Models;
 
 namespace lab04
 {
     public partial class LoginForm : Form
     {
         private readonly UserService _userService;
+        private int failedAttempts = 0;
+        private bool isBlocked = false;
 
         public LoginForm(UserService userService)
         {
@@ -13,8 +17,28 @@ namespace lab04
             InitializeComponent();
         }
 
+        private void UpdateLoginButtonState()
+        {
+            if (isBlocked)
+            {
+                btnLogin.Enabled = false;
+                btnLogin.Text = $"Logowanie Zablokowane";
+            }
+            else
+            {
+                btnLogin.Enabled = true;
+                btnLogin.Text = "Zaloguj";
+            }
+        }
+
         private async void BtnLogin_Click(object sender, EventArgs e)
         {
+            if (isBlocked)
+            {
+                MessageBox.Show("Logowanie Zablokowane", "Ostrzeżenie", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             string login = txtLogin.Text.Trim();
             string password = txtPassword.Text;
 
@@ -30,7 +54,17 @@ namespace lab04
 
                 if (user == null)
                 {
-                    MessageBox.Show("Nieprawidłowe dane logowania.", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    failedAttempts++;
+                    if (failedAttempts >= 3)
+                    {
+                        isBlocked = true;
+                        UpdateLoginButtonState();
+                        MessageBox.Show("Zbyt wiele nieudanych prób logowania. Logowanie Zostało Zablokowane.", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else
+                    {
+                        MessageBox.Show($"Nieprawidłowy login lub hasło. Pozostało prób: {3 - failedAttempts}", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                     return;
                 }
 
@@ -40,14 +74,15 @@ namespace lab04
                     this.Hide();
                     var serviceProvider = Program.ServiceProvider;
                     var adminDashboard = new AdminDashboardForm(user, serviceProvider);
+                    adminDashboard.FormClosed += (s, args) => this.Close(); // Zamknij aplikację po zamknięciu panelu administratora
                     adminDashboard.ShowDialog();
                     this.Show();
                 }
                 else if (user.Permissions == 1)
                 {
                     var serviceProvider = Program.ServiceProvider;
-                    throw new NotImplementedException("Panel użytkownika nie został jeszcze zaimplementowany.");
                     var userDashboard = new UserDashboardForm(user, serviceProvider);
+                    userDashboard.FormClosed += (s, args) => this.Close(); // Zamknij aplikację po zamknięciu panelu użytkownika
                     this.Hide();
                     userDashboard.ShowDialog();
                     this.Show();
@@ -76,6 +111,5 @@ namespace lab04
             registerForm.ShowDialog();
             this.Show();
         }
-
     }
 }

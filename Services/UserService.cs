@@ -94,10 +94,33 @@ namespace lab04.Services
         /// <param name="password"></param>
         public static string HashPassword(string password)
         {
-            return password; // TODO: Zaimplementować haszowanie hasła
+            using var sha256 = SHA256.Create();
+            var hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
+            return Convert.ToBase64String(hashedBytes);
         }
         
         public bool UserExists(string login) =>
             _dbContext.Users.Any(u => u.Login == login);
+
+        internal void UpdateUser(User updatedUser)
+        {
+            ArgumentNullException.ThrowIfNull(updatedUser);
+            var existingUser = _dbContext.Users.Find(updatedUser.Id);
+            if (existingUser == null)
+                throw new InvalidOperationException($"Użytkownik o ID {updatedUser.Id} nie został znaleziony.");
+            
+            existingUser.Login = updatedUser.Login;
+            existingUser.Password = HashPassword(updatedUser.Password);
+            existingUser.Email = updatedUser.Email;
+            existingUser.FirstName = updatedUser.FirstName;
+            existingUser.LastName = updatedUser.LastName;
+            existingUser.Permissions = updatedUser.Permissions;
+            _dbContext.SaveChanges();
+        }
+
+        internal int GetUsersCount()
+        {
+            return _dbContext.Users.Count();
+        }
     }
 }

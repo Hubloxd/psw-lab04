@@ -279,6 +279,10 @@ private void InitializeComponent()
     
     private void ChkShowPassword_CheckedChanged(object? sender, EventArgs e)
     {
-        throw new NotImplementedException();
+        var isChecked = chkShowPassword.Checked;
+        txtPassword.PasswordChar = isChecked ? '\0' : '*';
+        txtConfirmPassword.PasswordChar = isChecked ? '\0' : '*';
+        txtPassword.UseSystemPasswordChar = !isChecked;
+        txtConfirmPassword.UseSystemPasswordChar = !isChecked;
     }
 }

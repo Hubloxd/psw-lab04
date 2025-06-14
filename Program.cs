@@ -1,5 +1,6 @@
 using lab04.Data.Contexts;
 using lab04.Data.Models;
+using lab04.Forms.Admin;
 using lab04.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,14 +27,6 @@ namespace lab04
             
             // Aplikacja kliencka nie powinna tworzyæ bazy danych ani migracji.
             // Migracje powinny byæ stosowane przed uruchomieniem aplikacji klienckiej.
-            //if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") != "Development")
-            //{
-            //    dbContext.Database.Migrate();
-            //}
-            //else
-            //{
-            //    dbContext.Database.EnsureCreated();
-            //}
             try
             {
                 // SprawdŸ po³¹czenie z baz¹ danych
@@ -41,13 +34,15 @@ namespace lab04
                 if (!dbContext.Database.CanConnect())
                 {
                     Console.WriteLine("Database connection failed. Please check your connection string.");
-                    return;
+                    MessageBox.Show($"B³¹d po³¹czenia z baz¹ danych", "B³¹d",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Environment.Exit(1);
                 }
                 dbContext.Database.EnsureCreated();
                 var userService = ServiceProvider.GetRequiredService<UserService>();
                 if (!dbContext.Users.Any(u => u.Login == "admin"))
                 {
-                    var admin = new User
+                    var admin = new Data.Models.User
                     {
                         Password = "admin",
                         Email = "admin@admin.com",
@@ -64,16 +59,9 @@ namespace lab04
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"B³¹d po³¹czenia z baz¹ danych: {ex.Message}", "B³¹d",
+                MessageBox.Show($"B³¹d: {ex.Message}", "B³¹d",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            // Add admin user if not exists
-
-
-            // To customize application configuration such as set high DPI settings or default font,
-            // see https://aka.ms/applicationconfiguration.
-            //ApplicationConfiguration.Initialize();
-
         }
 
         /// <summary>
